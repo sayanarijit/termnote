@@ -19,7 +19,7 @@ from collections import OrderedDict
 
 # Configuration -------------------------------------------------------------
 
-VERSION = 'v1.0.4'
+VERSION = 'v1.0.5'
 EDITOR = os.environ.get('EDITOR', 'vi')
 STORAGE = os.environ.get('TN_STORAGE', os.path.expanduser('~') + '/.termnote')
 SCREEN_WIDTH = 100 # If not detected automatically
@@ -27,7 +27,11 @@ SCREEN_WIDTH = 100 # If not detected automatically
 #----------------------------------------------------------------------------
 
 
-columns = SCREEN_WIDTH
+found, docs = None, None
+try:
+    _, columns = map(int, os.popen('stty size', 'r').read().split())
+except:
+    columns = SCREEN_WIDTH
 
 
 def scan_dir():
@@ -197,14 +201,10 @@ def display_search(result, qry=None):
 
 def run():
 
-    global columns
+    global found
+    global docs
 
     clr()
-    try:
-        rows, columns = map(int, os.popen('stty size', 'r').read().split())
-    except:
-        columns = SCREEN_WIDTH
-
     docs = scan_dir()
 
     if len(docs) == 0: create_note()
