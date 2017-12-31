@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-from termnote.termnote import VERSION
+from termnote.config import VERSION
 
 here = path.abspath(path.dirname(__file__))
 

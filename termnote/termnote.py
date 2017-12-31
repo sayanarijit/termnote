@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*-coding: utf-8 -*-
 '''
 Author:         Arijit Basu
@@ -15,16 +14,7 @@ from codecs import open
 from prompt_toolkit import prompt
 from prompt_toolkit.contrib.completers import WordCompleter
 from collections import OrderedDict
-
-
-# Configuration -------------------------------------------------------------
-
-VERSION = 'v1.0.5'
-EDITOR = os.environ.get('EDITOR', 'vi')
-STORAGE = os.environ.get('TN_STORAGE', os.path.expanduser('~') + '/.termnote')
-SCREEN_WIDTH = 100 # If not detected automatically
-
-#----------------------------------------------------------------------------
+from termnote.config import EDITOR, STORAGE, SCREEN_WIDTH
 
 
 found, docs = None, None
