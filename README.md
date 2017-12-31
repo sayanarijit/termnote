@@ -13,7 +13,7 @@ A simple, yet powerful and handy terminal based note taking python app
 * Install with pip
 
 ```
-pip install -U termnote
+sudo pip install termnote
 ```
 
 Note: For the sake of LAZYNESS, 'tn' is a shortcut for 'termnote'
