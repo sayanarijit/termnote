@@ -18,11 +18,9 @@ sudo pip install termnote
 
 Note: For the sake of LAZYNESS, 'tn' is a shortcut for 'termnote'
 
-* Create your 1st note (Tip: default editor is vi; to change it, set $EDITOR environment variable)
+* Create your 1st note
 
 ```
-export EDITOR=vim
-
 tn my first note
 ```
 
@@ -42,4 +40,14 @@ tn first no
 
 ```
 tn
+```
+
+
+### Customization
+
+You can change default editor and path by adding below lines in your '~/.profile' file
+
+```
+export EDITOR="[Your favourite text editor. Default is 'vi']"
+export TN_STORAGE="[Directory where notes to be saved. Default is '~/.termnote']"
 ```
