@@ -6,10 +6,12 @@ Email:          sayanarijit@gmail.com
 Documentation:  https://sayanarijit.github.io/note.py
 '''
 
-from __future__ import print_function
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 import os
-import subprocess
 import sys
+import subprocess
+from codecs import open
 from prompt_toolkit import prompt
 from prompt_toolkit.contrib.completers import WordCompleter
 from collections import OrderedDict
@@ -17,12 +19,15 @@ from collections import OrderedDict
 
 # Configuration -------------------------------------------------------------
 
-VERSION = 'v1.0.3'
+VERSION = 'v1.0.4'
 EDITOR = os.environ.get('EDITOR', 'vi')
-STORAGE = os.environ.get('TN_STORAGE', os.path.expanduser('~') + '/termnote')
+STORAGE = os.environ.get('TN_STORAGE', os.path.expanduser('~') + '/.termnote')
 SCREEN_WIDTH = 100 # If not detected automatically
 
 #----------------------------------------------------------------------------
+
+
+columns = SCREEN_WIDTH
 
 
 def scan_dir():
@@ -37,6 +42,7 @@ def clr():
 
 
 def interact(qry, options=[]):
+    qry = qry.decode() if hasattr(qry, 'decode') else qry
     completer = WordCompleter(options, ignore_case=True)
     try:
         inp = prompt(qry, completer=completer)
@@ -46,7 +52,6 @@ def interact(qry, options=[]):
             quit()
     except:
         quit()
-
 
 def select(choices):
     print('-'*columns)
@@ -137,7 +142,7 @@ def match_word(word, content):
 
 
 def readfile(filename):
-    with open(STORAGE+'/'+filename) as f:
+    with open(STORAGE+'/'+filename, encoding='utf-8') as f:
         content = f.read()
     return str(content)
 
@@ -190,7 +195,10 @@ def display_search(result, qry=None):
         display_search(found, ans)
 
 
-if __name__ == '__main__':
+def run():
+
+    global columns
+
     clr()
     try:
         rows, columns = map(int, os.popen('stty size', 'r').read().split())
@@ -207,3 +215,7 @@ if __name__ == '__main__':
     else:
         found = docs.keys()
         display_search(found)
+
+
+if __name__ == '__main__':
+    run()

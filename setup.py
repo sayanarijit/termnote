@@ -50,5 +50,10 @@ setup(
     keywords='Notes Management Terminal App',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     install_requires=install_requirements,
-    scripts=['bin/termnote', 'bin/tn']
+    entry_points={
+        'console_scripts': [
+            'tn = termnote.termnote:run',
+            'termnote = termnote.termnote:run',
+        ]
+    }
 )
