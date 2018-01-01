@@ -66,5 +66,5 @@ sudo chmod a*+rwx /var/termnote
 * Set environment variable globally in '/etc/profile'
 
 ```
-export TN_STORAGE=/var/TERMNOTE'
+export TN_STORAGE=/var/termnote'
 ```
