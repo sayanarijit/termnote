@@ -16,7 +16,7 @@ A simple, yet powerful and handy terminal based note taking python app
 sudo pip install termnote
 ```
 
-Note: For the sake of LAZYNESS, 'tn' is a shortcut for 'termnote'
+***Note: For the sake of LAZYNESS, 'tn' is a shortcut for 'termnote'***
 
 * Create your 1st note
 
@@ -50,4 +50,21 @@ You can change default editor and path by adding below lines in your '~/.profile
 ```
 export EDITOR="[Your favourite text editor. Default is 'vi']"
 export TN_STORAGE="[Directory where notes to be saved. Default is '~/.termnote']"
+```
+
+### Multi user shared notes
+
+You can also have a common shared notes space for all users with following steps
+
+* Create a shared notes directory
+
+```
+sudo mkdir /var/termnote
+sudo chmod *+rwx /var/termnote
+```
+
+* Set environment variable globally in '/etc/profile'
+
+```
+export TN_STORAGE=/var/TERMNOTE'
 ```
