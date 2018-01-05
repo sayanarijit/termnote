@@ -105,6 +105,7 @@ def display_note(filename):
         os.rename(filepath, STORAGE+'/'+newname)
         docs[newname] = docs[filename]
         del docs[filename]
+        found = list(docs.keys())
         display_note(newname)
     elif ans == 'd':
         clr()
@@ -119,6 +120,9 @@ def display_note(filename):
         print('File not deleted!')
         quit()
     elif ans == 'b':
+        if len(found) == 0:
+            docs = scan_dir()
+            found = list(docs.keys())
         display_search(found)
     elif ans == 'q':
         quit()
@@ -182,7 +186,7 @@ def display_search(result, qry=None):
         display_note(notes[ans])
     elif ans == 'a':
         docs = scan_dir()
-        found = docs.keys()
+        found = list(docs.keys())
         display_search(found)
     elif ans == 'q':
         quit()
