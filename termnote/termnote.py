@@ -17,7 +17,7 @@ from collections import OrderedDict
 from termnote.config import EDITOR, STORAGE, SCREEN_WIDTH
 
 
-found, docs = None, None
+found, docs = [], {}
 try:
     _, columns = map(int, os.popen('stty size', 'r').read().split())
 except:
@@ -35,28 +35,29 @@ def clr():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def interact(qry, options=[]):
+def interact(qry, options=[], default=''):
     qry = qry.decode() if hasattr(qry, 'decode') else qry
+    default = default.decode() if hasattr(default, 'decode') else default
     completer = WordCompleter(options, ignore_case=True)
-    try:
-        inp = prompt(qry, completer=completer)
-        if inp:
-            return inp
-        else:
-            quit()
-    except:
+    # try:
+    inp = prompt(qry, completer=completer, default=default)
+    if inp:
+        return inp
+    else:
         quit()
+    # except:
+    #     quit()
 
-def select(choices):
+def select(choices, note_ids=[]):
     print('-'*columns)
     print(('   '.join([k+') '+v for k, v in choices.items() if type(k) != int])).center(columns))
     print('-'*columns)
-    return interact('Search or select: ', options=list(choices.keys()))
+    return interact('Search or select: ', options=list(choices.keys())+note_ids)
 
 
-def create_note(filename=None):
+def create_note(filename=""):
     clr()
-    if not filename: filename = interact('Enter title: ')
+    filename = interact('Enter title: ', default=filename)
     filepath = STORAGE + '/' + filename
 
     while os.path.exists(filepath):
@@ -86,8 +87,8 @@ def display_note(filename):
     choices = OrderedDict((('o','open with '+EDITOR), ('r','rename'),
                ('d','delete'), ('b','back'), ('q','quit')))
 
-    try: found
-    except: choices.pop('b')
+    if len(found) == 0:
+        choices.pop('b')
     ans = select(choices).lower()
 
     if ans == 'o':
@@ -95,17 +96,20 @@ def display_note(filename):
         display_note(filename)
     elif ans == 'r':
         clr()
-        newname = interact('Enter new title: ')
+        newname = interact('Enter new title: ', default=filename)
         while os.path.exists(STORAGE+'/'+newname):
             clr()
             print('Note "{}" already exists!'.format(filename))
-            newname = interact('Try another title: ')
+            newname = interact('Try another title: ', default=newname)
 
         os.rename(filepath, STORAGE+'/'+newname)
+        docs[newname] = docs[filename]
+        del docs[filename]
         display_note(newname)
     elif ans == 'd':
         clr()
-        ans = interact('Delete file \''+filepath+'\'? [ y/N ]: ')
+        ans = interact('Delete file \''+filepath+'\'? [ y/N ]: ',
+                        options=['y', 'n'])
         clr()
         if ans in ['y','Y']:
             os.remove(filepath)
@@ -154,7 +158,8 @@ def display_search(result, qry=None):
     global docs
     if len(result) == 0 and qry:
         print('No match found...')
-        ans = interact('Create new note with title "{}"? [y/N]: '.format(qry)).lower()
+        ans = interact('Create new note with title "{}"? [y/N]: '.format(qry),
+                        options=['y','n']).lower()
         if ans == 'y':
             create_note(qry)
         return
@@ -172,11 +177,13 @@ def display_search(result, qry=None):
     print()
 
     choices = OrderedDict((('n','new note'), ('a','list all'), ('h','help'), ('q','quit')))
-    ans = select(choices)
+    ans = select(choices, note_ids=list(notes.keys()))
     if ans in list(map(str, range(1,len(result)+1))):
         display_note(notes[ans])
     elif ans == 'a':
-        display_search(docs.keys())
+        docs = scan_dir()
+        found = docs.keys()
+        display_search(found)
     elif ans == 'q':
         quit()
     elif ans == 'h':
@@ -197,7 +204,7 @@ def run():
     clr()
     docs = scan_dir()
 
-    if len(docs) == 0: create_note()
+    if len(docs) == 0: create_note(filename=' '.join(sys.argv[1:]))
 
     if len(sys.argv) > 1:
         found = search(sys.argv[1:])
