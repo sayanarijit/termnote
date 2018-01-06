@@ -60,7 +60,7 @@ You can also have a common shared notes space for all users with following steps
 
 ```
 sudo mkdir /var/termnote
-sudo chmod a*+rwx /var/termnote
+sudo chmod a+rwx /var/termnote
 ```
 
 * Set environment variable globally in '/etc/profile'
