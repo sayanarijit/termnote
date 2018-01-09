@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-from termnote.config import VERSION
+from termnote import VERSION
 
 here = path.abspath(path.dirname(__file__))
 
@@ -22,6 +22,8 @@ setup(
     download_url='https://github.com/sayanarijit/termnote/archive/{}.tar.gz'.format(VERSION),
     author='Arijit Basu',
     author_email='sayanarijit@gmail.com',
+    license='MIT',
+    py_modules=['termnote'],
     classifiers=[
         # How mature is this project? Common values are
         #   3 - Alpha
@@ -52,8 +54,8 @@ setup(
     install_requires=install_requirements,
     entry_points={
         'console_scripts': [
-            'tn = termnote.termnote:run',
-            'termnote = termnote.termnote:run',
+            'tn = termnote:run',
+            'termnote = termnote:run',
         ]
     }
 )
