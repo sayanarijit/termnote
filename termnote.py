@@ -18,7 +18,7 @@ from collections import OrderedDict
 
 # --------------------------------- CONFIG ---------------------------------- #
 
-VERSION = 'v1.1.0'
+VERSION = 'v1.1.1'
 EDITOR = os.environ.get('EDITOR', 'vi')
 STORAGE = os.environ.get('TN_STORAGE', os.path.expanduser('~') + '/.termnote')
 SCREEN_WIDTH = 100      # If not detected automatically
@@ -124,7 +124,7 @@ class TermNote:
                 'Search or select: ',
                 options=list(self.options.keys()) + list(self.found.keys()) + self.allwords
             )
-        if entered.isnumeric() and int(entered) in self.found:
+        if re.sub('[0-9]', '', entered) == '' and int(entered) in self.found:
             self.note = self.found[int(entered)]
             return
         if entered in self.options:
