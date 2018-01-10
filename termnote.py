@@ -39,12 +39,13 @@ def clr():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def interact(qry, options=[], default=''):
+def interact(qry, options=[], default=None):
     """
     Interacts with user
     """
     qry = qry.decode() if hasattr(qry, 'decode') else qry
-    default = default.decode() if hasattr(default, 'decode') else default
+    if default is None: default = ''
+    if hasattr(default, 'decode'): default = default.decode()
     options = list(map(str, options))
     completer = WordCompleter(options, ignore_case=True)
     # try:
@@ -119,7 +120,6 @@ class TermNote:
     def search_or_select(self, entered=None):
         self.scandir()
         if entered is None:
-            self.all()
             entered = interact(
                 'Search or select: ',
                 options=list(self.options.keys()) + list(self.found.keys()) + self.allwords
@@ -162,12 +162,6 @@ class TermNote:
                 ('b','back'),
                 ('q','quit')
             ))
-
-            print('-'*columns)
-            print(('   '.join(
-                ['{}) {}'.format(k,v) for k, v in self.options.items()]
-            )).center(columns))
-            print('-'*columns)
         else:
             print('Found total:',len(self.found))
             print(('='*columns)+'\n')
@@ -176,13 +170,17 @@ class TermNote:
             for k,v in self.found.items():
                 print('    {}) {}'.format(k, v))
             print()
-            print('-'*columns)
             self.options = OrderedDict((
                 ('n','new'),
                 ('a','all'),
                 ('h','help'),
                 ('q','quit')
             ))
+        print('-'*columns)
+        print(('   '.join(
+            ['{}) {}'.format(k,v) for k, v in self.options.items()]
+        )).center(columns))
+        print('-'*columns)
 
     def all(self):
         self.note = None
@@ -248,6 +246,9 @@ def run():
     if len(sys.argv) > 1:
         searched = ' '.join(sys.argv[1:])
         termnote.search_or_select(searched)
+    else:
+        termnote.scandir()
+        termnote.all()
     while True:
         termnote.display()
         termnote.search_or_select()
