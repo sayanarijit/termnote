@@ -1,3 +1,6 @@
+[![PyPI version](https://img.shields.io/pypi/v/termnote.svg)](https://pypi.python.org/pypi/termnote)
+[![Build Status](https://travis-ci.org/sayanarijit/termnote.svg?branch=v1.1.1)](https://travis-ci.org/sayanarijit/termnote)
+
 # TermNote
 
 A simple, yet powerful and handy terminal based note taking python app
