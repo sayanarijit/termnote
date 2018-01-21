@@ -18,7 +18,7 @@ from collections import OrderedDict
 
 # --------------------------------- CONFIG ---------------------------------- #
 
-VERSION = 'v1.1.1'
+VERSION = 'v1.1.2'
 EDITOR = os.environ.get('EDITOR', 'vi')
 STORAGE = os.environ.get('TN_STORAGE', os.path.expanduser('~') + '/.termnote')
 SCREEN_WIDTH = 100      # If not detected automatically
