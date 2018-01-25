@@ -26,7 +26,7 @@ SCREEN_WIDTH = 100      # If not detected automatically
 
 
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'VERSION'), encoding='utf-8') as f:
+with open(os.path.join(here, 'VERSION')) as f:
     VERSION = f.read()
 
 
