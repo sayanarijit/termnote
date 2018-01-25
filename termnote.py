@@ -18,17 +18,12 @@ from collections import OrderedDict
 
 # --------------------------------- CONFIG ---------------------------------- #
 
-VERSION = 'v1.1.5'
+VERSION = 'v1.1.6'
 EDITOR = os.environ.get('EDITOR', 'vi')
 STORAGE = os.environ.get('TN_STORAGE', os.path.expanduser('~') + '/.termnote')
 SCREEN_WIDTH = 100      # If not detected automatically
 
 # --------------------------------------------------------------------------- #
-
-
-here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'VERSION')) as f:
-    VERSION = f.read()
 
 
 try:
