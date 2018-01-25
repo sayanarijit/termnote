@@ -1,7 +1,6 @@
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-from termnote import VERSION
 
 here = path.abspath(path.dirname(__file__))
 
@@ -12,6 +11,10 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 # Requirements for installation
 with open('requirements.txt') as requirements_file:
     install_requirements = requirements_file.read().splitlines()
+
+# Version
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    VERSION = f.read()
 
 setup(
     name='termnote',
