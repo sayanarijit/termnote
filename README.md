@@ -7,7 +7,7 @@ A simple, yet powerful and handy terminal based note taking python app
 
 ### Demo
 
-[!demo](https://raw.githubusercontent.com/sayanarijit/termnote/master/demo.gif)
+![demo](https://raw.githubusercontent.com/sayanarijit/termnote/master/demo.gif)
 
 
 ### Requirement
