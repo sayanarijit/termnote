@@ -5,13 +5,17 @@
 
 A simple, yet powerful and handy terminal based note taking python app
 
+### Demo
 
-### Requirement:
+[!demo](https://raw.githubusercontent.com/sayanarijit/termnote/master/demo.gif)
+
+
+### Requirement
 
 * requires python (>2 or 3)
 
 
-### Usage:
+### Usage
 
 * Install with pip
 
