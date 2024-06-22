@@ -1,6 +1,3 @@
-[![PyPI version](https://img.shields.io/pypi/v/termnote.svg)](https://pypi.python.org/pypi/termnote)
-[![Build Status](https://travis-ci.org/sayanarijit/termnote.svg?branch=master)](https://travis-ci.org/sayanarijit/termnote)
-
 # TermNote
 
 A simple, yet powerful and handy terminal based note taking python app
@@ -20,7 +17,7 @@ A simple, yet powerful and handy terminal based note taking python app
 * Install with pip
 
 ```
-sudo pip install termnote
+pip install git+https://github.com/sayanarijit/termnote
 ```
 
 ***Note: For the sake of LAZYNESS, 'tn' is a shortcut for 'termnote'***
